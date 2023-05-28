@@ -38,7 +38,7 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_ALLOW_EMPTY_PASSWORD: ${MYSQL_ALLOW_EMPTY_PASSWORD}
     ports:
-      - "${MYSQL_PORT}:${MYSQL_PORT}"
+      - "${MYSQL_PORT}:${INTERNAL_MYSQL_PORT}"
     volumes:
       - '.docker/mysql/data:/var/lib/mysql'
     networks:
