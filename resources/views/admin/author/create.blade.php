@@ -1,15 +1,15 @@
 @extends('adminlte::page')
 
-@section('title', 'Category')
+@section('title', 'Author')
 
 @section('content')
     <div class="row pt-4">
         <div class="col-lg-12 margin-tb">
             <div class="float-left">
-                <h2>Edit Category</h2>
+                <h2>Add Author</h2>
             </div>
             <div class="float-right">
-                <a class="btn btn-primary" href="{{ route('categories.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('authors.index') }}"> Back</a>
             </div>
         </div>
     </div>
@@ -25,15 +25,14 @@
         </div>
     @endif
 
-    <form action="{{ route('categories.update',$category->id) }}" method="POST">
+    <form action="{{ route('authors.store') }}" method="POST">
         @csrf
-        @method('PUT')
 
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Name:</strong>
-                    <input type="text" name="name" value="{{ $category->name }}" class="form-control" placeholder="Name">
+                    <strong>Author Name:</strong>
+                    <input type="text" name="author_name" class="form-control" placeholder="Name">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-left">

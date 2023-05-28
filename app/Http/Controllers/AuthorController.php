@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Author;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CategoryController extends Controller
+class AuthorController extends Controller
 {
 
     /**
@@ -16,8 +17,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::latest()->paginate(5);
-        return view('admin.category.index',compact('categories'))
+        $authors = Author::latest()->paginate(5);
+        return view('admin.author.index',compact('authors'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -29,9 +30,9 @@ class CategoryController extends Controller
     public function create()
     {
         $user = Auth::user();
-        $category = Category::all()->toArray();
+        $author = Author::all()->toArray();
         if ($user) {
-            return view('admin.category.create', compact('user', 'category'));
+            return view('admin.author.create', compact('user', 'author'));
         } else {
             return redirect('/');
         }
@@ -45,9 +46,9 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        $category = Category::findOrFail($id);
+        $author = Author::findOrFail($id);
         if ($user) {
-            return view('admin.category.edit', compact('user', 'category'));
+            return view('admin.author.edit', compact('user', 'author'));
         } else {
             return redirect('/');
         }
@@ -61,20 +62,20 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|min:3|max:50'
+            'author_name' => 'required|min:3|max:50'
         ]);
 
         $user = Auth::user();
-        $category = Category::findOrFail($id);
+        $author = Author::findOrFail($id);
         if ($user) {
             $data = $request->all();
 
-            $category->update([
-                'name' => $data["name"]
+            $author->update([
+                'author_name' => $data["author_name"]
             ]);
 
-            return redirect()->route('categories.index')
-                ->with('success','Category created successfully.');
+            return redirect()->route('authors.index')
+                ->with('success','Author created successfully.');
         } else {
             return redirect('/');
         }
@@ -89,7 +90,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|min:3|max:50'
+            'author_name' => 'required|min:3|max:50'
         ]);
 
         $user = Auth::user();
@@ -97,12 +98,12 @@ class CategoryController extends Controller
 
             $data = $request->all();
 
-            Category::create([
-                'name' => $data["name"]
+            Author::create([
+                'author_name' => $data["author_name"]
             ]);
 
-            return redirect()->route('categories.index')
-                ->with('success','Category created successfully.');
+            return redirect()->route('authors.index')
+                ->with('success','Author created successfully.');
         } else {
             return redirect('/');
         }
@@ -119,13 +120,13 @@ class CategoryController extends Controller
     {
         $user = Auth::user();
         if ($user) {
-            $category = Category::findOrFail($id);
+            $author = Author::findOrFail($id);
 
             if ($user->role == 'user') {
                 abort(403);
             }
 
-            return view('admin.category.show',compact('category', 'user'));
+            return view('admin.author.show',compact('author', 'user'));
         } else {
             return redirect('/');
         }
@@ -134,10 +135,10 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-        $categories = Category::findOrFail($id);
-        $categories->delete();
+        $author = Author::findOrFail($id);
+        $author->delete();
 
-        return redirect()->route('categories.index')
-            ->with('success','Category deleted successfully');
+        return redirect()->route('authors.index')
+            ->with('success','Author deleted successfully');
     }
 }

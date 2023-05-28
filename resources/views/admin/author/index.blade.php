@@ -1,16 +1,15 @@
 @extends('adminlte::page')
 
-@section('title', 'Suggestion List')
+@section('title', 'Authors')
 
 @section('content')
     <div class="row pt-4">
         <div class="col-lg-12 margin-tb">
             <div class="float-left d-inline-block">
-                <h2>My Suggestion List</h2>
+                <h2>Authors</h2>
             </div>
-
             <div class="float-right d-inline-block">
-                <a class="btn btn-success" href="{{ route('suggestions.create') }}">Create Suggestion</a>
+                <a class="btn btn-success" href="{{ route('authors.create') }}">Create Author</a>
             </div>
         </div>
     </div>
@@ -24,23 +23,27 @@
     <table class="table table-bordered">
         <tr>
             <th>No</th>
-            <th>Suggestion</th>
-            <th>Date</th>
+            <th>Name</th>
             <th width="280px">Action</th>
         </tr>
-        @foreach ($suggestions as $suggestion)
+        @foreach ($authors as $author)
             <tr>
                 <td>{{ ++$i }}</td>
-                <td>{{ \Illuminate\Support\Str::limit($suggestion->suggestion, 20, '...') }}</td>
-                <td>{{ $suggestion->created_at }}</td>
+                <td>{{ $author->author_name }}</td>
                 <td>
-                    <a class="btn btn-info" href="{{ route('suggestions.show',$suggestion->id) }}">Show</a>
+                    <form action="{{ route('authors.destroy',$author->id) }}" method="POST">
+                        <a class="btn btn-info" href="{{ route('authors.show',$author->id) }}">Show</a>
+                        <a class="btn btn-primary" href="{{ route('authors.edit',$author->id) }}">Edit</a>
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                 </td>
             </tr>
         @endforeach
     </table>
 
-    {!! $suggestions->links() !!}
+    {!! $authors->links() !!}
 
 @stop
 
@@ -50,6 +53,6 @@
 
 @section('js')
     <script>
-        //
+    //
     </script>
 @stop

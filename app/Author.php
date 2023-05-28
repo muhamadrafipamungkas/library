@@ -10,6 +10,8 @@ class Author extends Model
 
     use SoftDeletes;
 
+    protected $fillable = ["author_name"];
+
     /**
      * The attributes that should be mutated to dates.
      *
