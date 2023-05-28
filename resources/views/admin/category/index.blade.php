@@ -6,7 +6,7 @@
     <div class="row pt-4">
         <div class="col-lg-12 margin-tb">
             <div class="float-left d-inline-block">
-                <h2>Suggestion Category</h2>
+                <h2>Category</h2>
             </div>
             <div class="float-right d-inline-block">
                 <a class="btn btn-success" href="{{ route('categories.create') }}">Create Category</a>
