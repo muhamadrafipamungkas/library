@@ -19,7 +19,7 @@ Route::get('/', function () {
         if ($user->role == 'admin') {
             return redirect(route('categories.index'));
         } else if ($user->role == 'user') {
-            return redirect(route('suggestions.mine'));
+            return redirect(route('books.index'));
         }
     }
     return view('welcome');
