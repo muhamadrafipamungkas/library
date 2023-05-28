@@ -5,11 +5,9 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Suggestion extends Model
+class Publisher extends Model
 {
     use SoftDeletes;
-
-    protected $fillable = ['suggestion', 'category_id', 'user_id'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -18,14 +16,17 @@ class Suggestion extends Model
      */
     protected $dates = ['deleted_at'];
 
-
-    public function category()
+    /**
+     *
+     * Get the suggestions for the category.
+     */
+    public function books()
     {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
+        return $this->hasManyThrough(
+            Book::class,
+            BookPublisher::class,
+            "publisher_id",
+            "book_id"
+        );
     }
 }

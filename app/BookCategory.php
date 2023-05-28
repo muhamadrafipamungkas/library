@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Model
+class BookCategory extends Model
 {
 
     use SoftDeletes;
@@ -23,11 +23,19 @@ class Category extends Model
      */
     public function books()
     {
-        return $this->hasManyThrough(
+        return $this->hasMany(
             Book::class,
-            BookCategory::class,
-            "category_id",
+            "id",
             "book_id"
+        );
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(
+            Category::class,
+            "id",
+            "category_id"
         );
     }
 }

@@ -37,12 +37,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
     /**
      *
-     * Get the suggestions for the user.
+     * Get the suggestions for the category.
      */
-    public function suggestions()
+    public function borrowedBooks()
     {
-        return $this->hasMany(Suggestion::class);
+        return $this->hasManyThrough(
+            Book::class,
+            Borrow::class,
+            "book_id",
+            "user_id"
+        );
     }
 }

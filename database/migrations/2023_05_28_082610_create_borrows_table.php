@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSuggestionsTable extends Migration
+class CreateBorrowsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,19 @@ class CreateSuggestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('suggestions', function (Blueprint $table) {
+        Schema::create('borrows', function (Blueprint $table) {
             $table->id();
+            $table->string("borrow_id");
+            $table->unsignedBigInteger('book_id')->unsigned();
             $table->unsignedBigInteger('user_id')->unsigned();
-            $table->unsignedBigInteger('category_id')->unsigned();
-            $table->text('suggestion');
+            $table->enum('status', ["BORROW", "RETURN"]);
+            $table->date('borrow_date');
+            $table->date('return_date')->nullable();
             $table->softDeletes();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')
+            $table->foreign('book_id')->references('id')->on('books')
                 ->onDelete('cascade');
-            $table->foreign('category_id')->references('id')->on('categories')
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade');
         });
     }
@@ -34,6 +37,6 @@ class CreateSuggestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('suggestions');
+        Schema::dropIfExists('borrows');
     }
 }
