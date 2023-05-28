@@ -67,7 +67,7 @@
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="title m-b-md">
-                    Suggestion Box's App
+                    Library App
                 </div>
                 @if (Route::has('login'))
                 <div class="links">
