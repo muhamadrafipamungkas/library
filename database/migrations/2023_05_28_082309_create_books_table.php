@@ -19,6 +19,7 @@ class CreateBooksTable extends Migration
             $table->year("published_year");
             $table->year("publisher");
             $table->unsignedBigInteger("quantity");
+            $table->string("thumbnail");
             $table->softDeletes();
             $table->timestamps();
         });
