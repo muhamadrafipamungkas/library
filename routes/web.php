@@ -30,3 +30,13 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('categories', 'CategoryController')->middleware('\App\Http\Middleware\AdminAuth');
 Route::resource('authors', 'AuthorController')->middleware('\App\Http\Middleware\AdminAuth');
+Route::resource('publishers', 'PublisherController')->middleware('\App\Http\Middleware\AdminAuth');
+
+// Books
+Route::get('books', 'BookController@index')->name('books.index');
+Route::get('books/new', 'BookController@create')->name('books.create');
+Route::post('books', 'BookController@store')->name('books.store');
+Route::put('books/{id}', 'BookController@update')->name('books.update');
+Route::get('books/{id}', 'BookController@show')->name('books.show');
+Route::get('books/{id}/update', 'BookController@edit')->name('books.edit');
+Route::delete('books/{id}', 'BookController@destroy')->name('books.destroy');

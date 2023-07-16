@@ -25,10 +25,10 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user) {
-            return redirect(route('books.mine'));
+        if ($user->role === 'admin') {
+            return redirect(route('books.index'));
         } else {
-            return redirect('/');
+            return redirect(route('books.index'));
         }
     }
 }

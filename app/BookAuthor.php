@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class BookAuthor extends Model
 {
     use SoftDeletes;
+    protected $fillable = ["book_id", "author_id"];
 
     /**
      * The attributes that should be mutated to dates.

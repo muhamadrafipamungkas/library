@@ -9,6 +9,7 @@ class BookCategory extends Model
 {
 
     use SoftDeletes;
+    protected $fillable = ["book_id", "category_id"];
 
     /**
      * The attributes that should be mutated to dates.

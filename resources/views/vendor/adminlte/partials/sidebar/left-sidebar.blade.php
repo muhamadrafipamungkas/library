@@ -21,31 +21,6 @@
                 {{-- Configured sidebar links --}}
                 @each('adminlte::partials.sidebar.menu-item', $adminlte->menu('sidebar'), 'item')
 
-{{--                @if(\Illuminate\Support\Facades\Auth::user() && \Illuminate\Support\Facades\Auth::user()->role == 'user')--}}
-{{--                    <li class="nav-item">--}}
-{{--                        <a href="#" class="nav-link active">--}}
-{{--                            <i class="nav-icon fas fa-edit"></i>--}}
-{{--                            <p>--}}
-{{--                                Suggestion--}}
-{{--                                <i class="fas fa-angle-left right"></i>--}}
-{{--                            </p>--}}
-{{--                        </a>--}}
-{{--                        <ul class="nav nav-treeview">--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a href="{{route('suggestions.mine')}}" class="nav-link">--}}
-{{--                                    <i class="far fa-circle nav-icon"></i>--}}
-{{--                                    <p>My suggestions</p>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a href="{{route('suggestions.create')}}" class="nav-link">--}}
-{{--                                    <i class="far fa-circle nav-icon"></i>--}}
-{{--                                    <p>Create new suggestion</p>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
-{{--                @endif--}}
                 @if(\Illuminate\Support\Facades\Auth::user() && \Illuminate\Support\Facades\Auth::user()->role == 'admin')
                     <li class="nav-link">
                         <a href="{{route('authors.index')}}" class="nav-link">
@@ -60,6 +35,22 @@
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
                                 Categories list
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="{{route('publishers.index')}}" class="nav-link">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p>
+                                Publishers list
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="{{route('books.index')}}" class="nav-link">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p>
+                                Book list
                             </p>
                         </a>
                     </li>
