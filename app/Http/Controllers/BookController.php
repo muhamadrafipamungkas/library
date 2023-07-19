@@ -115,8 +115,8 @@ class BookController extends Controller
         if ($user) {
 
             $file = $request->file('attachment');
-            $tujuan_upload = 'public/attachments/cover';
             $random_id = Str::uuid()->toString();
+            $tujuan_upload = 'public/attachments/cover';
             $filename = $random_id . "." . $file->getClientOriginalExtension();
             $file->storeAs($tujuan_upload, $filename);
 
@@ -125,7 +125,7 @@ class BookController extends Controller
                 'title' => $data["name"],
                 'published_year' => $data["publisher_year"],
                 'quantity' => $data["quantity"],
-                'publisher' => $data["publisher"],
+                'publisher_id' => $data["publisher"],
                 'thumbnail' => $filename
             ]);
 

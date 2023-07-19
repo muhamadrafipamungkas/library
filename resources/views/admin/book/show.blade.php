@@ -36,6 +36,23 @@
                 <strong>Published Year:</strong>
                 {{ $book->published_year }}
             </div>
+            <div class="form-group">
+                <strong>Publisher Name:</strong>
+                {{ $book->publisher_name }}
+            </div>
+            <div class="form-group">
+                <strong>Categories:</strong>
+                {{ $book->categories_name_list() }}
+            </div>
+            <div class="form-group">
+                <strong>Quantity:</strong>
+                {{ $book->quantity }}
+            </div>
+            <div class="form-group">
+                <strong>Book Cover:</strong>
+                <img src="{{ URL::asset('storage/public/attachments/cover/'.$book->thumbnail) }}" />
+                {{ $book->thumbnail }}
+            </div>
         </div>
     </div>
 @stop

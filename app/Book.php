@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Book extends Model
 {
     use SoftDeletes;
-    protected $fillable = ["title", "author_id", "published_year", "publisher", "quantity", "thumbnail"];
+    protected $fillable = ["title", "author_id", "published_year", "publisher_id", "quantity", "thumbnail"];
 
     /**
      * The attributes that should be mutated to dates.
@@ -36,5 +36,49 @@ class Book extends Model
             "book_id",
             "id"
         );
+    }
+
+
+    public function authors()
+    {
+        return $this->hasManyThrough(
+            Author::class,
+            BookAuthor::class,
+            "author_id",
+            "id"
+        );
+    }
+
+    public function categories_id_list()
+    {
+        $cats_array = [];
+        $cats = $this->hasManyThrough(
+            Category::class,
+            BookCategory::class,
+            "book_id",
+            "id"
+        )->get()->toArray();
+
+        foreach ($cats as $cat) {
+            array_push($cats_array, $cat["id"]);
+        }
+
+        return implode(',',$cats_array);
+    }
+
+    public function categories_name_list()
+    {
+        $cats_array = [];
+        $cats = $this->hasManyThrough(
+            Category::class,
+            BookCategory::class,
+            "book_id",
+            "id"
+        )->get()->toArray();
+
+        foreach ($cats as $cat) {
+            array_push($cats_array, $cat["name"]);
+        }
+        return implode(',',$cats_array);
     }
 }
