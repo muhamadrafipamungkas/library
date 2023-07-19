@@ -7,6 +7,7 @@ use App\Book;
 use App\BookAuthor;
 use App\BookCategory;
 use App\BookPublisher;
+use App\Borrow;
 use App\Category;
 use App\Publisher;
 use Illuminate\Http\Request;
@@ -25,8 +26,14 @@ class BookController extends Controller
     {
         $user = Auth::user();
         $books = Book::latest()->paginate(5);
-        return view('admin.book.index',compact('books', 'user'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        if ($user->role == 'admin') {
+            return view('admin.book.index',compact('books', 'user'))
+                ->with('i', (request()->input('page', 1) - 1) * 5);
+        } else {
+            $borrow = Borrow::where('user_id', $user->id)->where('status', 'borrow')->pluck('book_id')->toArray();
+            return view('user.book.index',compact('books', 'user', 'borrow'))
+                ->with('i', (request()->input('page', 1) - 1) * 5);
+        }
     }
 
     /**
@@ -169,7 +176,7 @@ class BookController extends Controller
             $book = Book::findOrFail($id);
 
             if ($user->role == 'user') {
-                abort(403);
+                return view('user.book.show',compact('book', 'user'));
             }
 
             return view('admin.book.show',compact('book', 'user'));
@@ -190,5 +197,69 @@ class BookController extends Controller
 
         return redirect()->route('books.index')
             ->with('success','Book deleted successfully');
+    }
+
+    public function borrowIndex()
+    {
+        $user = Auth::user();
+        if ($user->role == 'admin') {
+            $borrows = Borrow::orderBy('status', 'ASC')->latest()->paginate(5);
+            return view('admin.borrow.index',compact('borrows', 'user'))
+                ->with('i', (request()->input('page', 1) - 1) * 5);
+        } else {
+            $borrows = Borrow::where('user_id', $user->id)->orderBy('status', 'ASC')->latest()->paginate(5);
+            return view('user.borrow.index',compact('borrows', 'user'))
+                ->with('i', (request()->input('page', 1) - 1) * 5);
+        }
+    }
+
+    public function borrowBook($id) {
+        $user = Auth::user();
+        if ($user) {
+            $book = Book::findOrFail($id);
+
+            if ($user->role == 'user') {
+
+                $borrow = Borrow::create([
+                    'borrow_id' => Str::uuid()->toString(),
+                    'user_id' => $user->id,
+                    'book_id' => $book->id,
+                    'status' => 'BORROW',
+                    'borrow_date' => date("Y-m-d"),
+                ]);
+
+                return redirect()->route('borrows.index')
+                    ->with('success','Book borrowed successfully');
+
+            } else {
+                abort(403);
+            }
+        } else {
+            return redirect('/');
+        }
+    }
+
+
+    public function returnBook($id) {
+        $user = Auth::user();
+        if ($user) {
+            $borrow = Borrow::findOrFail($id);
+
+            if ($user->role == 'admin') {
+
+                $borrow->update([
+                    'return_date' => date('Y-m-d'),
+                    'status' => 'RETURN'
+                ]);
+
+                return redirect()->route('borrows.index')
+                    ->with('success','Book returned successfully');
+
+            } else {
+                abort(403);
+            }
+        } else {
+            return redirect('/');
+        }
     }
 }

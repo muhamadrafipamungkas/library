@@ -21,6 +21,24 @@
                 {{-- Configured sidebar links --}}
                 @each('adminlte::partials.sidebar.menu-item', $adminlte->menu('sidebar'), 'item')
 
+                @if(\Illuminate\Support\Facades\Auth::user() && \Illuminate\Support\Facades\Auth::user()->role == 'user')
+                    <li class="nav-link">
+                        <a href="{{route('books.index')}}" class="nav-link">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p>
+                                Book list
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="{{route('borrows.index')}}" class="nav-link">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p>
+                                Borrow list
+                            </p>
+                        </a>
+                    </li>
+                @endif
                 @if(\Illuminate\Support\Facades\Auth::user() && \Illuminate\Support\Facades\Auth::user()->role == 'admin')
                     <li class="nav-link">
                         <a href="{{route('authors.index')}}" class="nav-link">
@@ -51,6 +69,14 @@
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
                                 Book list
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="{{route('borrows.index')}}" class="nav-link">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p>
+                                Borrow list
                             </p>
                         </a>
                     </li>

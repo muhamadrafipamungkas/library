@@ -44,8 +44,15 @@
                 <td>{{ $book->categories_name_list() }}</td>
                 <td>{{ $book->quantity }}</td>
                 <td>
-                    <a class="btn btn-info" href="{{ route('books.show',$book->id) }}">Show</a>
-                    <a class="btn btn-info" href="{{ route('books.show',$book->id) }}">Borrow</a>
+                    <form action="{{ route('books.borrow',$book->id) }}" method="POST">
+                        <a class="btn btn-info" href="{{ route('books.show',$book->id) }}">Show</a>
+                        @if(in_array($book->id, $borrow))
+                            <button class="btn btn-info" disabled>Borrowed</button>
+                        @else
+                            @csrf
+                            <button type="submit" class="btn btn-success">Borrow</button>
+                        @endif
+                    </form>
                 </td>
             </tr>
         @endforeach

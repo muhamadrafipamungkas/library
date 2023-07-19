@@ -40,3 +40,7 @@ Route::put('books/{id}', 'BookController@update')->name('books.update');
 Route::get('books/{id}', 'BookController@show')->name('books.show');
 Route::get('books/{id}/update', 'BookController@edit')->name('books.edit');
 Route::delete('books/{id}', 'BookController@destroy')->name('books.destroy');
+
+Route::get('borrows', 'BookController@borrowIndex')->name('borrows.index');
+Route::post('borrows/{id}', 'BookController@borrowBook')->name('books.borrow');
+Route::put('borrows/{id}', 'BookController@returnBook')->name('books.return');

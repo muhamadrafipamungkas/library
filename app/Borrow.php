@@ -9,6 +9,7 @@ class Borrow extends Model
 {
 
     use SoftDeletes;
+    protected $fillable = ["borrow_id","book_id", "user_id", "status", "borrow_date", "return_date"];
 
     /**
      * The attributes that should be mutated to dates.
