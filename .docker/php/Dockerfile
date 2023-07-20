@@ -39,10 +39,10 @@ RUN groupadd -g 1000 ${GROUP} && useradd -u 1000 -ms /bin/bash -g ${GROUP} ${USE
 # Grant Permissions
 RUN chown -R ${USER} /var/www
 
-# Select User
-USER ${USER}
-
 # Copy permission to selected user
 COPY --chown=${USER}:${GROUP} . .
+
+# Select User
+USER ${USER}
 
 EXPOSE ${APP_PORT}
