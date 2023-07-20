@@ -23,6 +23,8 @@
             <th>Title</th>
             <th>Borrow Date</th>
             <th>Return Date</th>
+            <th>User</th>
+
 
             <th>Status</th>
             <th width="280px">Action</th>
@@ -34,6 +36,7 @@
                 <td>{{ $borrow->borrow_date }}</td>
                 <td>{{ $borrow->return_date }}</td>
                 <td>{{ $borrow->status }}</td>
+                <td>{{ $borrow->user ? $borrow->user->name : '' }}</td>
                 <td>
                     @if($borrow->book)
                         <form action="{{ route('books.return',$borrow->id) }}" method="POST">

@@ -92,7 +92,7 @@ class BookController extends Controller
             ]);
 
             return redirect()->route('book.index')
-                ->with('success','Book created successfully.');
+                ->with('success','Book updated successfully.');
         } else {
             return redirect('/');
         }

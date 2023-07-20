@@ -23,8 +23,10 @@ class Book extends Model
         return $this->hasManyThrough(
             Publisher::class,
             BookPublisher::class,
-            "publisher_id",
-            "id"
+            "book_id",
+            "id",
+            "id",
+            "publisher_id"
         );
     }
 
@@ -44,9 +46,31 @@ class Book extends Model
         return $this->hasManyThrough(
             Author::class,
             BookAuthor::class,
-            "author_id",
-            "id"
+            "book_id",
+            "id",
+            "id",
+            "author_id"
         );
+    }
+
+
+    public function authors_name_list()
+    {
+        $authors_array = [];
+        $authors = $this->hasManyThrough(
+            Author::class,
+            BookAuthor::class,
+            "book_id",
+            "id",
+            "id",
+            "author_id"
+        )->get()->toArray();
+
+        foreach ($authors as $author) {
+            array_push($authors_array, $author["author_name"]);
+        }
+
+        return implode(',',$authors_array);
     }
 
     public function categories_id_list()
@@ -56,7 +80,9 @@ class Book extends Model
             Category::class,
             BookCategory::class,
             "book_id",
-            "id"
+            "id",
+            "id",
+            "category_id"
         )->get()->toArray();
 
         foreach ($cats as $cat) {
@@ -73,7 +99,9 @@ class Book extends Model
             Category::class,
             BookCategory::class,
             "book_id",
-            "id"
+            "id",
+            "id",
+            "category_id"
         )->get()->toArray();
 
         foreach ($cats as $cat) {

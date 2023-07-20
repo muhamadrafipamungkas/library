@@ -75,7 +75,7 @@ class AuthorController extends Controller
             ]);
 
             return redirect()->route('authors.index')
-                ->with('success','Author created successfully.');
+                ->with('success','Author updated successfully.');
         } else {
             return redirect('/');
         }

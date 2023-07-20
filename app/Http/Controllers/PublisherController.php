@@ -74,7 +74,7 @@ class PublisherController extends Controller
             ]);
 
             return redirect()->route('publishers.index')
-                ->with('success','Publisher created successfully.');
+                ->with('success','Publisher updated successfully.');
         } else {
             return redirect('/');
         }

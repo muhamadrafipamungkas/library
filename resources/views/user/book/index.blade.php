@@ -38,9 +38,9 @@
             <tr>
                 <td>{{ ++$i }}</td>
                 <td>{{ $book->title }}</td>
-                <td>{{ $book->authors ? $book->authors[0]["author_name"] : '' }}</td>
+                <td>{{ $book->authors_name_list()}}</td>
                 <td>{{ $book->published_year }}</td>
-                <td>{{ $book->publisher ? $book->publisher[0]['publisher_name'] : '' }}</td>
+                <td>{{ $book->publisher ? (count($book->publisher) > 0 ?$book->publisher[0]['publisher_name']: '') : '' }}</td>
                 <td>{{ $book->categories_name_list() }}</td>
                 <td>{{ $book->quantity }}</td>
                 <td>
