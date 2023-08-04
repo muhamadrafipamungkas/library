@@ -88,10 +88,11 @@ class BookController extends Controller
             $data = $request->all();
 
             $book->update([
-                'name' => $data["name"]
+                'title' => $data["name"],
+                'published_year' => $data["published_year"]
             ]);
 
-            return redirect()->route('book.index')
+            return redirect()->route('books.index')
                 ->with('success','Book updated successfully.');
         } else {
             return redirect('/');

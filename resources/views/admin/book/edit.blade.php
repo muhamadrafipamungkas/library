@@ -25,7 +25,7 @@
         </div>
     @endif
 
-    <form action="{{ route('books.update',$books->id) }}" method="POST">
+    <form action="{{ route('books.update',$book->id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -33,9 +33,44 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Name:</strong>
-                    <input type="text" name="name" value="{{ $books->name }}" class="form-control" placeholder="Name">
+                    <input type="text" name="name" value="{{ $book->title }}" class="form-control" placeholder="Name">
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Published Year:</strong>
+                    <input type="text" name="published_year" value="{{ $book->published_year }}" class="form-control" placeholder="2002">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <strong>Publisher Name:</strong>
+                {{ $book->publisher_name }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <strong>Categories:</strong>
+                {{ $book->categories_name_list() }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <strong>Quantity:</strong>
+                {{ $book->quantity }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <strong>Book Cover:</strong>
+                <img src="{{ URL::asset('storage/public/attachments/cover/'.$book->thumbnail) }}" />
+                {{ $book->thumbnail }}
+            </div>
+        </div>
+        <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 text-left">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
